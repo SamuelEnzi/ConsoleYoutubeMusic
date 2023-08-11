@@ -27,4 +27,4 @@ ConsoleYoutubeMusic is built using technologies such as C# WebView2 to capture Y
 
 The key maintainer and contributor to the development of ConsoleYoutubeMusic is Samuel Enzi.
 
-Thank you for your interest in ConsoleYoutubeMusic. If you have any questions or concerns, please feel free to contact us.
+Thank you for your interest in ConsoleYoutubeMusic. If you have any questions or concerns, please feel free to contact me.
