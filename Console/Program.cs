@@ -5,10 +5,25 @@ using YoutubeExplode.Playlists;
 
 AnsiConsole.MarkupLine("[red]YoutubeMusic[/].[purple]Console[/]");
 AnsiConsole.MarkupLine("[purple]Retrieving[/] cookies");
-var cookie = CookieRetriever.GetCookies();
-if (cookie == null)
-    throw new Exception("Invalid cookies");
 
+var storedCookies = CookieStore.GetCookies();
+if (!CookieStore.ValidateCookies(storedCookies))
+{
+    AnsiConsole.MarkupLine("[red]Invalid[/] cookies");
+    AnsiConsole.MarkupLine("[purple]Retrieving[/] new cookies");
+    var cookies = CookieRetriever.GetCookies();
+    if (cookies == null)
+        throw new Exception("no cookies retrieved");
+    if (!CookieStore.ValidateCookies(cookies))
+        throw new Exception("retrieved cookies are invalid");
+
+    CookieStore.SaveCookies(cookies);
+    AnsiConsole.MarkupLine("[green]Saved[/] cookies");
+}
+else
+    AnsiConsole.MarkupLine("[green]Valid[/] cookies");
+
+var cookie = CookieStore.GetCookies();
 
 var client = new YoutubeClient(cookie);
 AnsiConsole.MarkupLine("[purple]Loading[/] playlist");

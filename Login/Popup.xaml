@@ -6,7 +6,7 @@
         xmlns:web="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:local="clr-namespace:Login"
         mc:Ignorable="d"
-        Title="Popup" Height="776" Width="1024" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Visibility="Hidden" WindowState="Minimized">
+        Title="Popup" Height="776" Width="1024" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterOwner" WindowState="Minimized">
     <Grid>
         <web:WebView2 x:Name="UI_WebView"></web:WebView2>
     </Grid>

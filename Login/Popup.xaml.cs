@@ -23,6 +23,7 @@ namespace Login
     public partial class Popup : Window
     {
         private Action<List<CoreWebView2Cookie>> cookiesCallback;
+        private bool first = true;
         public Popup(Action<List<CoreWebView2Cookie>> cookies)
         {
             InitializeComponent();
@@ -32,9 +33,17 @@ namespace Login
 
         private void OnNavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
         {
+           
+
+            Debug.WriteLine(e.Uri); 
             // if logged in
-            if(e.Uri == "https://www.youtube.com/account")
+            if(e.Uri.StartsWith("https://www.youtube.com/account?cbrd=1"))
             {
+                if (first)
+                {
+                    first = false;
+                    return;
+                }
                 GetCookies();
             }
         }
@@ -49,25 +58,21 @@ namespace Login
 
         private async void GetCookies()
         {
-            var cookies = await UI_WebView.CoreWebView2.CookieManager.GetCookiesAsync("https://www.youtube.com/");
-            cookiesCallback.Invoke(cookies);
+            if (await CheckCookies())
+            {
+                var cookies = await UI_WebView.CoreWebView2.CookieManager.GetCookiesAsync("https://www.youtube.com/");
+                cookiesCallback.Invoke(cookies);
+            }
         }
 
         public async void LoadUrl(string url)
         {
             await UI_WebView.EnsureCoreWebView2Async();
-
-            var alreadyLoggedIn = await CheckCookies();
-            if (alreadyLoggedIn)
-            {
-                GetCookies();
-                return;
-            }
+            UI_WebView.CoreWebView2.CookieManager.DeleteAllCookies();
 
             UI_WebView.CoreWebView2.Navigate(url);
-            UI_WebView.NavigationStarting += OnNavigationStarting;
             this.WindowState = WindowState.Normal;
-            this.Visibility = Visibility.Visible;
+            UI_WebView.NavigationStarting += OnNavigationStarting;
         }
     }
 }
