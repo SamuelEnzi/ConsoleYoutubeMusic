@@ -59,8 +59,6 @@ while (position >= 0 && position < videos.Count)
         {
             new TaskDescriptionColumn(),    // Task description
             new ProgressBarColumn(),        // Progress bar
-            new PercentageColumn(),         // Percentage
-            new RemainingTimeColumn(),      // Remaining time
         })
         .Start(ctx =>
         {

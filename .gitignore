@@ -1,3 +1,5 @@
 .vs/*
 **/bin/*
 **/obj/*
+InstallerProject/Debug/*
+InstallerProject/Release/*

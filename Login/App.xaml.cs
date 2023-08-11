@@ -2,12 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Login
@@ -26,20 +22,27 @@ namespace Login
 
         private void OnCookiesLoaded(List<CoreWebView2Cookie> cookies)
         {
-            Debug.WriteLine($"found cookies: {cookies.Count}");
+            try
+            {
+                Debug.WriteLine($"found cookies: {cookies.Count}");
 
-            List<Cookie> converted = new List<Cookie>();
+                List<Cookie> converted = new List<Cookie>();
 
-            foreach (var cookie in cookies)
-                converted.Add(cookie.ToSystemNetCookie());
-            
-            var json = JsonConvert.SerializeObject(converted);
+                foreach (var cookie in cookies)
+                    converted.Add(cookie.ToSystemNetCookie());
 
-            popup?.Close();
-            
-            Console.WriteLine(json);
+                var json = JsonConvert.SerializeObject(converted);
 
-            Environment.Exit(0);
+                popup?.Close();
+
+                Console.WriteLine(json);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.ToString(), ex.Message); }
+            finally
+            {
+                Environment.Exit(0);
+
+            }
         }
     }
 }
