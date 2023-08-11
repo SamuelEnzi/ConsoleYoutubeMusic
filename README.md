@@ -1,4 +1,5 @@
 # ConsoleYoutubeMusic
+<img src="music.png"  width="120" height="120">
 
 ConsoleYoutubeMusic is a lightweight music system that automatically generates your liked playlist from YouTube and allows for high-quality audio streams without the YouTube GUI or a web browser. This console application was designed to eliminate the need for a browser to listen to YouTube music.
 
